@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — AI Reading Assistant</title>
+  <style>
+    body {
+      max-width: 740px;
+      margin: 48px auto;
+      padding: 0 24px 80px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #374151;
+    }
+    h1 { font-size: 28px; color: #111827; margin-bottom: 4px; }
+    .meta { color: #9ca3af; font-size: 14px; margin-bottom: 40px; }
+    h2 { font-size: 18px; color: #111827; margin-top: 36px; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    a { color: #6366f1; }
+    .highlight {
+      background: #f0f0ff;
+      border-left: 3px solid #6366f1;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin: 24px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Privacy Policy</h1>
+  <p class="meta">AI Reading Assistant Chrome Extension &nbsp;·&nbsp; Last updated: June 2026</p>
+
+  <div class="highlight">
+    <strong>Summary:</strong> We do not collect, store, or share any personal data.
+    All processing happens locally in your browser or through services you already use.
+  </div>
+
+  <h2>1. What the Extension Does</h2>
+  <p>
+    AI Reading Assistant is a Chrome extension that lets you select text on any webpage
+    and receive an instant translation or AI-powered explanation without leaving the page.
+  </p>
+
+  <h2>2. Data We Collect</h2>
+  <p><strong>We collect no data.</strong> The developer has no server, database, or analytics
+  system. Nothing you do with this extension is ever transmitted to us.</p>
+
+  <h2>3. How Your Selected Text Is Used</h2>
+  <ul>
+    <li>
+      <strong>Quick translation</strong> — When you select text, it is sent to the
+      <a href="https://mymemory.translated.net/" target="_blank" rel="noopener">MyMemory Translation API</a>
+      (a public, free translation service) to retrieve a translation.
+      MyMemory's own <a href="https://mymemory.translated.net/doc/usagelimits.php" target="_blank" rel="noopener">privacy and usage policy</a> applies to these requests.
+    </li>
+    <li>
+      <strong>Ask Claude / Ask ChatGPT</strong> — When you click these buttons, a pre-written
+      prompt containing your selected text is stored temporarily in your browser's local storage
+      (<code>chrome.storage.local</code>) and is used to auto-fill the input box on
+      <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> or
+      <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>.
+      The prompt is deleted from local storage immediately after use.
+      Your interactions with Claude or ChatGPT are governed by
+      <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic's Privacy Policy</a>
+      and <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAI's Privacy Policy</a> respectively.
+    </li>
+  </ul>
+
+  <h2>4. Permissions Explained</h2>
+  <ul>
+    <li><strong>Read and change all your data on websites you visit</strong> — Required to
+    detect text selections and display the translation tooltip on any webpage.</li>
+    <li><strong>Storage</strong> — Used only to temporarily hold your prompt text while the
+    Claude/ChatGPT popup window loads. No browsing history or personal data is stored.</li>
+    <li><strong>Windows / Tabs</strong> — Used to open the Claude or ChatGPT popup window.</li>
+  </ul>
+
+  <h2>5. Third-Party Services</h2>
+  <ul>
+    <li><a href="https://mymemory.translated.net/" target="_blank" rel="noopener">MyMemory Translation API</a> — for instant translations.</li>
+    <li><a href="https://claude.ai" target="_blank" rel="noopener">Anthropic Claude</a> — optional, on user request.</li>
+    <li><a href="https://chatgpt.com" target="_blank" rel="noopener">OpenAI ChatGPT</a> — optional, on user request.</li>
+  </ul>
+  <p>We are not affiliated with, endorsed by, or sponsored by any of these services.</p>
+
+  <h2>6. Children's Privacy</h2>
+  <p>This extension is not directed at children under 13. We do not knowingly collect
+  any information from children.</p>
+
+  <h2>7. Changes to This Policy</h2>
+  <p>If we update this policy, the "Last updated" date above will change.
+  Continued use of the extension after an update constitutes acceptance of the new policy.</p>
+
+  <h2>8. Contact</h2>
+  <p>Questions? Open an issue on our
+  <a href="https://github.com/" target="_blank" rel="noopener">GitHub repository</a>
+  or email us at the address listed on the Chrome Web Store listing.</p>
+</body>
+</html>
