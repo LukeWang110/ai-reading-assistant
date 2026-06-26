@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Reading Assistant – Translate & Explain</title>
+  <meta name="description" content="AI Reading Assistant helps you understand English instantly with translation, dictionary lookup, pronunciation, and AI explanations." />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --green: #10a37f;
+      --border: #e5e7eb;
+      --shadow: 0 18px 50px rgba(15, 23, 42, 0.10);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top left, #eef2ff 0%, transparent 35%), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container { max-width: 1120px; margin: 0 auto; padding: 32px 24px; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: 16px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 20px; }
+    .logo {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, #7c3aed, #2563eb, #22d3ee);
+      display: grid; place-items: center; color: white;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+      font-size: 22px;
+    }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 22px; font-weight: 600; }
+    nav a:hover { color: var(--primary); }
+    .hero {
+      display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px;
+      align-items: center; padding: 80px 0 64px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--primary); background: #eef2ff; border: 1px solid #e0e7ff;
+      padding: 8px 12px; border-radius: 999px; font-weight: 700; font-size: 14px;
+      margin-bottom: 20px;
+    }
+    h1 { font-size: clamp(46px, 6vw, 76px); line-height: 1.05; margin: 0 0 24px; letter-spacing: -0.045em; }
+    .gradient {
+      background: linear-gradient(135deg, var(--primary), #2563eb);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p { font-size: 22px; color: var(--muted); margin: 0 0 32px; max-width: 620px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .button {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 14px 20px; border-radius: 14px; text-decoration: none;
+      font-weight: 800; border: 1px solid transparent;
+    }
+    .button.primary {
+      background: linear-gradient(135deg, var(--primary), #2563eb);
+      color: white; box-shadow: 0 12px 30px rgba(99, 102, 241, 0.35);
+    }
+    .button.secondary { background: white; color: var(--text); border-color: var(--border); }
+    .product-card {
+      background: white; border: 1px solid var(--border); border-radius: 28px;
+      box-shadow: var(--shadow); padding: 28px; transform: rotate(1deg);
+    }
+    .browser { background: #f3f4f6; border-radius: 18px; overflow: hidden; border: 1px solid #e5e7eb; }
+    .browser-top { height: 44px; background: #fff; display: flex; align-items: center; gap: 8px; padding: 0 16px; border-bottom: 1px solid var(--border); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .red { background: #ff5f57; } .yellow { background: #ffbd2e; } .green-dot { background: #28c840; }
+    .article {
+      min-height: 420px; padding: 32px; background: linear-gradient(180deg, #fff, #f9fafb);
+      position: relative; overflow: hidden; font-family: Georgia, serif; font-size: 25px;
+      line-height: 1.45; color: #111;
+    }
+    .highlight { background: #bfdbfe; padding: 0 4px; }
+    .tooltip {
+      position: absolute; left: 80px; top: 88px; width: 420px; background: white;
+      border-radius: 18px; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+      overflow: hidden; border: 1px solid #e5e7eb;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px;
+    }
+    .tooltip-head { padding: 16px 18px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); font-weight: 800; font-size: 18px; }
+    .tooltip-body { padding: 18px; color: #374151; }
+    .tag { display: inline-block; background: #eef2ff; color: var(--primary); font-weight: 800; padding: 3px 8px; border-radius: 7px; margin-left: 10px; }
+    .tooltip-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 14px 18px 18px; }
+    .mini-btn { padding: 10px; border-radius: 10px; text-align: center; font-weight: 800; font-size: 13px; }
+    .claude { background: #eef2ff; color: var(--primary-dark); }
+    .chatgpt { background: #ecfdf5; color: var(--green); }
+    section { padding: 70px 0; }
+    .section-title { text-align: center; margin-bottom: 42px; }
+    .section-title h2 { font-size: clamp(34px, 4vw, 52px); margin: 0 0 12px; letter-spacing: -0.035em; }
+    .section-title p { color: var(--muted); font-size: 20px; margin: 0; }
+    .features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .feature {
+      background: white; border: 1px solid var(--border); border-radius: 22px;
+      padding: 24px; box-shadow: 0 10px 26px rgba(15, 23, 42, 0.05);
+    }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center;
+      background: #eef2ff; color: var(--primary); font-size: 22px; margin-bottom: 16px;
+    }
+    .feature h3 { margin: 0 0 8px; font-size: 20px; }
+    .feature p { color: var(--muted); margin: 0; }
+    .privacy-card {
+      background: #111827; color: white; border-radius: 28px; padding: 42px;
+      display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: center;
+    }
+    .privacy-card p { color: #d1d5db; font-size: 18px; }
+    .checks { list-style: none; padding: 0; margin: 0; }
+    .checks li { margin: 12px 0; color: #e5e7eb; font-weight: 600; }
+    footer {
+      padding: 42px 0; color: var(--muted); border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    footer a { color: var(--primary); text-decoration: none; font-weight: 700; }
+    @media (max-width: 900px) {
+      .hero, .privacy-card { grid-template-columns: 1fr; }
+      .features { grid-template-columns: repeat(2, 1fr); }
+      .product-card { transform: none; }
+      nav { display: none; }
+    }
+    @media (max-width: 560px) {
+      .container { padding: 24px 18px; }
+      .features { grid-template-columns: 1fr; }
+      .article { padding: 22px; font-size: 20px; }
+      .tooltip { position: relative; left: auto; top: auto; width: 100%; margin-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand"><div class="logo">✦</div><span>AI Reading Assistant</span></div>
+      <nav><a href="#features">Features</a><a href="#privacy">Privacy</a><a href="privacy.html">Privacy Policy</a></nav>
+    </header>
+    <main class="hero">
+      <div>
+        <div class="eyebrow">Chrome Extension · Translate & Explain</div>
+        <h1>Understand English <span class="gradient">instantly</span>.</h1>
+        <p>Select any word, sentence, or paragraph to get translation, dictionary lookup, pronunciation, and AI explanations without leaving the page.</p>
+        <div class="actions">
+          <a class="button primary" href="#" aria-label="Chrome Web Store link coming soon">Chrome Web Store coming soon</a>
+          <a class="button secondary" href="privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="browser">
+          <div class="browser-top"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green-dot"></span></div>
+          <div class="article">
+            The latest <span class="highlight">fashionable</span> worry about America's economy...
+            <br><br>
+            Personal consumption has grown steadily, but readers often need instant context while staying focused.
+            <div class="tooltip">
+              <div class="tooltip-head"><span>fashionable 🐝</span><span>×</span></div>
+              <div class="tooltip-body">
+                <p><strong>/ˈfæʃənəbl/</strong><span class="tag">ADJ.</span></p>
+                <p>① currently popular or influenced by current trends.</p>
+                <p>② accepted or preferred in a particular context.</p>
+                <p><strong>In this sentence:</strong><br>Here it means “currently popular”.</p>
+              </div>
+              <div class="tooltip-actions"><div class="mini-btn claude">✦ Explain with Claude</div><div class="mini-btn chatgpt">⊕ Explain with ChatGPT</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <section id="features">
+      <div class="section-title"><h2>Translate. Learn. Keep reading.</h2><p>Everything you need to understand English online, right where you are.</p></div>
+      <div class="features">
+        <div class="feature"><div class="feature-icon">📖</div><h3>Instant Dictionary</h3><p>Get definitions, pronunciation, part of speech, examples, and context in one popup.</p></div>
+        <div class="feature"><div class="feature-icon">✨</div><h3>AI Explanations</h3><p>Open Claude or ChatGPT with your selected text prepared automatically.</p></div>
+        <div class="feature"><div class="feature-icon">📚</div><h3>Today's Words</h3><p>Automatically save looked-up words so you can review them later.</p></div>
+        <div class="feature"><div class="feature-icon">🌐</div><h3>Works Everywhere</h3><p>Use it on articles, Gmail, documentation, research papers, and most webpages.</p></div>
+      </div>
+    </section>
+    <section id="privacy">
+      <div class="privacy-card">
+        <div><h2>Privacy first.</h2><p>The extension only processes text you intentionally select. Vocabulary history is stored locally in your browser.</p><a class="button primary" href="privacy.html">Read Privacy Policy</a></div>
+        <ul class="checks"><li>✓ No ads</li><li>✓ No tracking</li><li>✓ No selling user data</li><li>✓ No API key required</li></ul>
+      </div>
+    </section>
+    <footer><div>© 2026 AI Reading Assistant – Translate & Explain</div><div><a href="privacy.html">Privacy Policy</a></div></footer>
+  </div>
+</body>
+</html>
